@@ -14,7 +14,7 @@ func Pods() {
 	defer w.Flush()
 
 	config, _ := load.LoadPods("/Users/francismarasouza/eck-diagnostics-parser/pods.json")
-	fmt.Fprintf(w, "\n\n%s\t%s\t\t%s\t%s\t%s\t%s\t%s\t", "PODS NAME", "STATUS", "MEM REQUEST", "MEM LIMIT", "CPU REQUEST", "CPU LIMIT", "INIT CONTAINER STATUS")
+	fmt.Fprintf(w, "\n\n%s\t%s\t\t%s\t%s\t%s\t%s\t%s\t", "PODS NAME", "STATUS", "MEM REQUEST", "MEM LIMIT", "CPU REQUEST", "CPU LIMIT", "INIT CONTAINERS STATUS")
 
 	for i := range config.Items {
 		fmt.Fprintf(w, "\n%s\t", config.Items[i].Metadata.Name)

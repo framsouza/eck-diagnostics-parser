@@ -32,3 +32,9 @@ func ECKV() {
 	fmt.Printf("%s\n", version)
 
 }
+
+func Collection() {
+	config, _ := load.LoadManifest("/Users/francismarasouza/unzip-go/manifest.json")
+	fmt.Println("Diagnostic Collection date is", config.CollectionDate)
+
+}

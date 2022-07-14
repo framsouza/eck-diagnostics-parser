@@ -22,7 +22,3 @@ func Deployment() {
 
 	}
 }
-
-// Check if JVM was set
-
-//CHECK VOLUMES ATTACHED

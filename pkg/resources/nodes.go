@@ -14,7 +14,7 @@ func Nodes() {
 	defer w.Flush()
 
 	config, _ := load.LoadNodes("/Users/francismarasouza/finding-file/tmp/nodes.json")
-	fmt.Fprintf(w, "\n%s\t%s\t%s\t%s\t\t%s\t\t%s\t%s\t", "NODE NAME", "CPU CAPACITY", "CPU ALLOCATED", "MEMORY CAPACITY", "MEMORY ALLOCATED", "VERSION", "NODE CONDITIONS")
+	fmt.Fprintf(w, "\n%s\t%s\t%s\t%s\t\t%s\t\t%s\t%s\t", "NODE NAME", "CPU CAPACITY", "CPU ALLOCATED", "MEM CAPACITY", "MEM ALLOCATED", "VERSION", "NODE CONDITIONS")
 
 	for i := range config.Items {
 		fmt.Fprintf(w, "\n%s\t", config.Items[i].Metadata.Name)

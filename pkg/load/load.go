@@ -2,6 +2,7 @@ package load
 
 import (
 	"encoding/json"
+	"log"
 	"os"
 	"time"
 )
@@ -1781,9 +1782,231 @@ type PVC struct {
 	} `json:"metadata"`
 }
 
+type Service struct {
+	APIVersion string `json:"apiVersion"`
+	Items      []struct {
+		APIVersion string `json:"apiVersion"`
+		Kind       string `json:"kind"`
+		Metadata   struct {
+			Annotations *struct {
+				Service_beta_kubernetes_io_awsLoadBalancerAdditionalResourceTags string `json:"service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags,omitempty"`
+				Service_beta_kubernetes_io_awsLoadBalancerInternal               string `json:"service.beta.kubernetes.io/aws-load-balancer-internal"`
+				Service_beta_kubernetes_io_awsLoadBalancerProxyProtocol          string `json:"service.beta.kubernetes.io/aws-load-balancer-proxy-protocol,omitempty"`
+				Service_beta_kubernetes_io_awsLoadBalancerType                   string `json:"service.beta.kubernetes.io/aws-load-balancer-type"`
+			} `json:"annotations,omitempty"`
+			CreationTimestamp time.Time `json:"creationTimestamp"`
+			Finalizers        []string  `json:"finalizers,omitempty"`
+			Labels            struct {
+				Common_K8S_Elastic_Co_Type                   string `json:"common.k8s.elastic.co/type,omitempty"`
+				Component                                    string `json:"component,omitempty"`
+				Elasticsearch_k8s_elastic_co_clusterName     string `json:"elasticsearch.k8s.elastic.co/cluster-name,omitempty"`
+				Elasticsearch_k8s_elastic_co_statefulsetName string `json:"elasticsearch.k8s.elastic.co/statefulset-name,omitempty"`
+				Kibana_K8S_Elastic_Co_Name                   string `json:"kibana.k8s.elastic.co/name,omitempty"`
+				Provider                                     string `json:"provider,omitempty"`
+			} `json:"labels"`
+			ManagedFields []struct {
+				APIVersion string `json:"apiVersion"`
+				FieldsType string `json:"fieldsType"`
+				FieldsV1   struct {
+					F_Metadata struct {
+						F_Annotations *struct {
+							_                                                                  struct{}  `json:"."`
+							F_service_beta_kubernetes_io_awsLoadBalancerAdditionalResourceTags *struct{} `json:"f:service.beta.kubernetes.io/aws-load-balancer-additional-resource-tags,omitempty"`
+							F_service_beta_kubernetes_io_awsLoadBalancerInternal               struct{}  `json:"f:service.beta.kubernetes.io/aws-load-balancer-internal"`
+							F_service_beta_kubernetes_io_awsLoadBalancerProxyProtocol          *struct{} `json:"f:service.beta.kubernetes.io/aws-load-balancer-proxy-protocol,omitempty"`
+							F_service_beta_kubernetes_io_awsLoadBalancerType                   struct{}  `json:"f:service.beta.kubernetes.io/aws-load-balancer-type"`
+						} `json:"f:annotations,omitempty"`
+						F_Finalizers *struct {
+							_ struct{} `json:"."`
+							// "v:\"service.kubernetes.io/load-balancer-cleanup\"" cannot be unmarshalled into a struct field by encoding/json.
+						} `json:"f:finalizers,omitempty"`
+						F_Labels *struct {
+							_                                              struct{}  `json:"."`
+							F_Common_K8S_Elastic_Co_Type                   *struct{} `json:"f:common.k8s.elastic.co/type,omitempty"`
+							F_Component                                    *struct{} `json:"f:component,omitempty"`
+							F_elasticsearch_k8s_elastic_co_clusterName     *struct{} `json:"f:elasticsearch.k8s.elastic.co/cluster-name,omitempty"`
+							F_elasticsearch_k8s_elastic_co_statefulsetName *struct{} `json:"f:elasticsearch.k8s.elastic.co/statefulset-name,omitempty"`
+							F_Kibana_K8S_Elastic_Co_Name                   *struct{} `json:"f:kibana.k8s.elastic.co/name,omitempty"`
+							F_Provider                                     *struct{} `json:"f:provider,omitempty"`
+						} `json:"f:labels,omitempty"`
+						F_OwnerReferences *struct {
+							_ struct{} `json:"."`
+							// "k:{\"uid\":\"5de07191-561b-4b60-b3de-ab58726c31d4\"}" cannot be unmarshalled into a struct field by encoding/json.
+							// "k:{\"uid\":\"b0d54df0-cd08-41a9-b58c-de75022f4448\"}" cannot be unmarshalled into a struct field by encoding/json.
+						} `json:"f:ownerReferences,omitempty"`
+					} `json:"f:metadata"`
+					F_Spec *struct {
+						F_ClusterIp             *struct{} `json:"f:clusterIP,omitempty"`
+						F_ExternalTrafficPolicy *struct{} `json:"f:externalTrafficPolicy,omitempty"`
+						F_IpFamilyPolicy        *struct{} `json:"f:ipFamilyPolicy,omitempty"`
+						F_Ports                 struct {
+							_ struct{} `json:"."`
+							// "k:{\"port\":443,\"protocol\":\"TCP\"}" cannot be unmarshalled into a struct field by encoding/json.
+							// "k:{\"port\":5601,\"protocol\":\"TCP\"}" cannot be unmarshalled into a struct field by encoding/json.
+							// "k:{\"port\":9200,\"protocol\":\"TCP\"}" cannot be unmarshalled into a struct field by encoding/json.
+							// "k:{\"port\":9300,\"protocol\":\"TCP\"}" cannot be unmarshalled into a struct field by encoding/json.
+						} `json:"f:ports"`
+						F_PublishNotReadyAddresses *struct{} `json:"f:publishNotReadyAddresses,omitempty"`
+						F_Selector                 *struct {
+							_                                              struct{}  `json:"."`
+							F_Common_K8S_Elastic_Co_Type                   struct{}  `json:"f:common.k8s.elastic.co/type"`
+							F_elasticsearch_k8s_elastic_co_clusterName     *struct{} `json:"f:elasticsearch.k8s.elastic.co/cluster-name,omitempty"`
+							F_elasticsearch_k8s_elastic_co_statefulsetName *struct{} `json:"f:elasticsearch.k8s.elastic.co/statefulset-name,omitempty"`
+							F_Kibana_K8S_Elastic_Co_Name                   *struct{} `json:"f:kibana.k8s.elastic.co/name,omitempty"`
+						} `json:"f:selector,omitempty"`
+						F_SessionAffinity struct{} `json:"f:sessionAffinity"`
+						F_Type            struct{} `json:"f:type"`
+					} `json:"f:spec,omitempty"`
+					F_Status *struct {
+						F_LoadBalancer struct {
+							F_Ingress struct{} `json:"f:ingress"`
+						} `json:"f:loadBalancer"`
+					} `json:"f:status,omitempty"`
+				} `json:"fieldsV1"`
+				Manager   string    `json:"manager"`
+				Operation string    `json:"operation"`
+				Time      time.Time `json:"time"`
+			} `json:"managedFields"`
+			Name            string `json:"name"`
+			Namespace       string `json:"namespace"`
+			OwnerReferences []struct {
+				APIVersion         string `json:"apiVersion"`
+				BlockOwnerDeletion bool   `json:"blockOwnerDeletion"`
+				Controller         bool   `json:"controller"`
+				Kind               string `json:"kind"`
+				Name               string `json:"name"`
+				Uid                string `json:"uid"`
+			} `json:"ownerReferences,omitempty"`
+			ResourceVersion string `json:"resourceVersion"`
+			Uid             string `json:"uid"`
+		} `json:"metadata"`
+		Spec struct {
+			ClusterIp             string   `json:"clusterIP"`
+			ClusterIPs            []string `json:"clusterIPs"`
+			ExternalTrafficPolicy string   `json:"externalTrafficPolicy,omitempty"`
+			IpFamilies            []string `json:"ipFamilies"`
+			IpFamilyPolicy        string   `json:"ipFamilyPolicy"`
+			Ports                 []struct {
+				Name       string `json:"name"`
+				NodePort   int    `json:"nodePort,omitempty"`
+				Port       int    `json:"port"`
+				Protocol   string `json:"protocol"`
+				TargetPort int    `json:"targetPort"`
+			} `json:"ports"`
+			PublishNotReadyAddresses bool `json:"publishNotReadyAddresses,omitempty"`
+			Selector                 *struct {
+				Common_K8S_Elastic_Co_Type                   string `json:"common.k8s.elastic.co/type"`
+				Elasticsearch_k8s_elastic_co_clusterName     string `json:"elasticsearch.k8s.elastic.co/cluster-name,omitempty"`
+				Elasticsearch_k8s_elastic_co_statefulsetName string `json:"elasticsearch.k8s.elastic.co/statefulset-name,omitempty"`
+				Kibana_K8S_Elastic_Co_Name                   string `json:"kibana.k8s.elastic.co/name,omitempty"`
+			} `json:"selector,omitempty"`
+			SessionAffinity string `json:"sessionAffinity"`
+			Type            string `json:"type"`
+		} `json:"spec"`
+		Status struct {
+			LoadBalancer struct {
+				Ingress []struct {
+					Hostname string `json:"hostname"`
+				} `json:"ingress,omitempty"`
+			} `json:"loadBalancer"`
+		} `json:"status"`
+	} `json:"items"`
+	Kind     string `json:"kind"`
+	Metadata struct {
+		ResourceVersion string `json:"resourceVersion"`
+	} `json:"metadata"`
+}
+
+type EndPoint struct {
+	APIVersion string `json:"apiVersion"`
+	Items      []struct {
+		APIVersion string `json:"apiVersion"`
+		Kind       string `json:"kind"`
+		Metadata   struct {
+			Annotations *struct {
+				Endpoints_kubernetes_io_lastChangeTriggerTime time.Time `json:"endpoints.kubernetes.io/last-change-trigger-time"`
+			} `json:"annotations,omitempty"`
+			CreationTimestamp time.Time `json:"creationTimestamp"`
+			Labels            struct {
+				Common_K8S_Elastic_Co_Type                   string `json:"common.k8s.elastic.co/type,omitempty"`
+				Elasticsearch_k8s_elastic_co_clusterName     string `json:"elasticsearch.k8s.elastic.co/cluster-name,omitempty"`
+				Elasticsearch_k8s_elastic_co_statefulsetName string `json:"elasticsearch.k8s.elastic.co/statefulset-name,omitempty"`
+				Endpointslice_kubernetes_io_skipMirror       string `json:"endpointslice.kubernetes.io/skip-mirror,omitempty"`
+				Kibana_K8S_Elastic_Co_Name                   string `json:"kibana.k8s.elastic.co/name,omitempty"`
+				Service_Kubernetes_Io_Headless               string `json:"service.kubernetes.io/headless"`
+			} `json:"labels"`
+			ManagedFields []struct {
+				APIVersion string `json:"apiVersion"`
+				FieldsType string `json:"fieldsType"`
+				FieldsV1   struct {
+					F_Metadata struct {
+						F_Annotations *struct {
+							_                                               struct{} `json:"."`
+							F_endpoints_kubernetes_io_lastChangeTriggerTime struct{} `json:"f:endpoints.kubernetes.io/last-change-trigger-time"`
+						} `json:"f:annotations,omitempty"`
+						F_Labels struct {
+							_                                              struct{}  `json:"."`
+							F_Common_K8S_Elastic_Co_Type                   *struct{} `json:"f:common.k8s.elastic.co/type,omitempty"`
+							F_elasticsearch_k8s_elastic_co_clusterName     *struct{} `json:"f:elasticsearch.k8s.elastic.co/cluster-name,omitempty"`
+							F_elasticsearch_k8s_elastic_co_statefulsetName *struct{} `json:"f:elasticsearch.k8s.elastic.co/statefulset-name,omitempty"`
+							F_endpointslice_kubernetes_io_skipMirror       *struct{} `json:"f:endpointslice.kubernetes.io/skip-mirror,omitempty"`
+							F_Kibana_K8S_Elastic_Co_Name                   *struct{} `json:"f:kibana.k8s.elastic.co/name,omitempty"`
+							F_Service_Kubernetes_Io_Headless               *struct{} `json:"f:service.kubernetes.io/headless,omitempty"`
+						} `json:"f:labels"`
+					} `json:"f:metadata"`
+					F_Subsets struct{} `json:"f:subsets"`
+				} `json:"fieldsV1"`
+				Manager   string    `json:"manager"`
+				Operation string    `json:"operation"`
+				Time      time.Time `json:"time"`
+			} `json:"managedFields"`
+			Name            string `json:"name"`
+			Namespace       string `json:"namespace"`
+			ResourceVersion string `json:"resourceVersion"`
+			Uid             string `json:"uid"`
+		} `json:"metadata"`
+		Subsets []struct {
+			Addresses []struct {
+				Hostname  string `json:"hostname,omitempty"`
+				Ip        string `json:"ip"`
+				NodeName  string `json:"nodeName,omitempty"`
+				TargetRef *struct {
+					Kind            string `json:"kind"`
+					Name            string `json:"name"`
+					Namespace       string `json:"namespace"`
+					ResourceVersion string `json:"resourceVersion"`
+					Uid             string `json:"uid"`
+				} `json:"targetRef,omitempty"`
+			} `json:"addresses"`
+			Ports []struct {
+				Name     string `json:"name"`
+				Port     int    `json:"port"`
+				Protocol string `json:"protocol"`
+			} `json:"ports"`
+		} `json:"subsets"`
+	} `json:"items"`
+	Kind     string `json:"kind"`
+	Metadata struct {
+		ResourceVersion string `json:"resourceVersion"`
+	} `json:"metadata"`
+}
+
+type Manifest struct {
+	CollectionDate      time.Time `json:"collectionDate"`
+	DiagType            string    `json:"diagType"`
+	DiagVersion         string    `json:"diagVersion"`
+	IncludedDiagnostics []struct {
+		DiagPath string `json:"diagPath"`
+		DiagType string `json:"diagType"`
+	} `json:"includedDiagnostics"`
+}
+
 func LoadNodes(filename string) (Nodes, error) {
 	var config Nodes
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
@@ -1797,6 +2020,9 @@ func LoadNodes(filename string) (Nodes, error) {
 func LoadPods(filename string) (Pods, error) {
 	var config Pods
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
@@ -1810,6 +2036,9 @@ func LoadPods(filename string) (Pods, error) {
 func LoadES(filename string) (ES, error) {
 	var config ES
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
@@ -1823,6 +2052,9 @@ func LoadES(filename string) (ES, error) {
 func LoadKibana(filename string) (Kibana, error) {
 	var config Kibana
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
@@ -1836,6 +2068,9 @@ func LoadKibana(filename string) (Kibana, error) {
 func LoadEvents(filename string) (Events, error) {
 	var config Events
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
@@ -1849,6 +2084,9 @@ func LoadEvents(filename string) (Events, error) {
 func LoadDiagV(filename string) (DiagVersion, error) {
 	var config DiagVersion
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
@@ -1862,6 +2100,9 @@ func LoadDiagV(filename string) (DiagVersion, error) {
 func LoadStatefulSet(filename string) (StatefulSet, error) {
 	var config StatefulSet
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
@@ -1875,6 +2116,9 @@ func LoadStatefulSet(filename string) (StatefulSet, error) {
 func LoadDeploy(filename string) (Deployment, error) {
 	var config Deployment
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
@@ -1888,6 +2132,57 @@ func LoadDeploy(filename string) (Deployment, error) {
 func LoadPVC(filename string) (PVC, error) {
 	var config PVC
 	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	if err != nil {
+		return config, err
+	}
+
+	jsonparser := json.NewDecoder(file)
+	err = jsonparser.Decode(&config)
+	return config, err
+}
+
+func LoadService(filename string) (Service, error) {
+	var config Service
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	if err != nil {
+		return config, err
+	}
+
+	jsonparser := json.NewDecoder(file)
+	err = jsonparser.Decode(&config)
+	return config, err
+}
+
+func LoadEndPoint(filename string) (EndPoint, error) {
+	var config EndPoint
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	if err != nil {
+		return config, err
+	}
+
+	jsonparser := json.NewDecoder(file)
+	err = jsonparser.Decode(&config)
+	return config, err
+}
+
+func LoadManifest(filename string) (Manifest, error) {
+	var config Manifest
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
 	defer file.Close()
 	if err != nil {
 		return config, err
