@@ -7,22 +7,13 @@ import (
 	"os"
 
 	extract "github.com/framsouza/eck-diagnostics-parser/pkg/extract"
-	findfile "github.com/framsouza/eck-diagnostics-parser/pkg/findfile"
 	resources "github.com/framsouza/eck-diagnostics-parser/pkg/resources"
 )
 
 var (
 	zipfile     = flag.String("zipfile", "", "Enter zip file name")
-	destination = flag.String("destination", "", "Enter the destination path")
+	destination = flag.String("destination", "./tmp/", "Enter the destination path")
 )
-
-// DON'T FORGET!!! REMEMBER TO FIND ANOTHER WAY TO PASS THE FILE NAMES TO THE FUNCITONS!!!!!
-
-// CHECK IF STORAGECLASS FILE EXISTS AND PRINT IT
-
-// TREAT ERRORS AND LOGS
-
-// ADD OPERATOR INFORMATIONS
 
 func main() {
 	flag.Parse()
@@ -54,11 +45,17 @@ func main() {
 	resources.Deployment()
 	resources.PVC()
 	resources.Service()
-	fmt.Print("\n\n")
-	findfile.FindOpNS()
-	findfile.FindRsNS()
-	fmt.Print("FILES")
-	findfile.ListDir(*destination)
-	//resources.Events()
+	summary()
+
+}
+
+func summary() {
+	fmt.Print("\n\nBASED ON THE OUTPUT ABOVE, MAKE SURE THAT:\n")
+	fmt.Print("- All the services has an endpoint attached to it\n")
+	fmt.Print("- All the PVC has a Bound status\n")
+	fmt.Print("- All the Elasticsearch Resources are Green and the Phase is \"READY\"\n")
+	fmt.Print("- All the Kibana Resources are Green and the Phase is \"READY\"\n")
+	fmt.Print("- Every pod is RUNNING\n")
+	fmt.Print("- Every pod has the same MEM REQUEST & MEM LIMIT\n\n")
 
 }

@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-var destination string
+var Destination string
 
 func UnzipSource(source, destination string) error {
 	// Open zip
@@ -20,7 +20,7 @@ func UnzipSource(source, destination string) error {
 	defer reader.Close()
 
 	// Get the path
-	destination, err = filepath.Abs(destination)
+	Destination, err = filepath.Abs(destination)
 	if err != nil {
 		return err
 	}

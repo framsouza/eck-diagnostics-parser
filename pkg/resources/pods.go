@@ -8,12 +8,19 @@ import (
 	load "github.com/framsouza/eck-diagnostics-parser/pkg/load"
 )
 
+var pods = "pods.json"
+
 func Pods() {
 	w := new(tabwriter.Writer)
 	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
 	defer w.Flush()
 
-	config, _ := load.LoadPods("/Users/francismarasouza/eck-diagnostics-parser/pods.json")
+	//for _, f := range handlingfiles.FindFile(pods, extract.Destination) {
+	//	fmt.Print("PODS FILENAME", f)
+	//}
+	//config, _ := load.LoadPods(p)
+
+	config, _ := load.LoadPods("/Users/francismarasouza/eck-diagnostics-parser/tmp/default/pods.json")
 	fmt.Fprintf(w, "\n\n%s\t%s\t\t%s\t%s\t%s\t%s\t%s\t", "PODS NAME", "STATUS", "MEM REQUEST", "MEM LIMIT", "CPU REQUEST", "CPU LIMIT", "INIT CONTAINERS STATUS")
 
 	for i := range config.Items {
@@ -45,13 +52,13 @@ func Pods() {
 
 			}
 		}
+
 		//Check initcontainers
+
 		for c := range config.Items[i].Status.InitContainerStatuses {
 			fmt.Fprintf(w, "%s %s, ", config.Items[i].Status.InitContainerStatuses[c].Name, config.Items[i].Status.InitContainerStatuses[c].State.Terminated.Reason)
 
 		}
 
 	}
-
-	// Print labels to compare with the service labels
 }

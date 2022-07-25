@@ -13,7 +13,10 @@ func Nodes() {
 	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
 	defer w.Flush()
 
-	config, _ := load.LoadNodes("/Users/francismarasouza/finding-file/tmp/nodes.json")
+	//for _, f := range handlingfiles.FindFile("nodes.json", extract.Destination) {
+	//fmt.Println("NODE FILE", f)
+	//config, _ := load.LoadNodes(f)
+	config, _ := load.LoadNodes("/Users/francismarasouza/eck-diagnostics-parser/tmp/nodes.json")
 	fmt.Fprintf(w, "\n%s\t%s\t%s\t%s\t\t%s\t\t%s\t%s\t", "NODE NAME", "CPU CAPACITY", "CPU ALLOCATED", "MEM CAPACITY", "MEM ALLOCATED", "VERSION", "NODE CONDITIONS")
 
 	for i := range config.Items {
@@ -29,4 +32,7 @@ func Nodes() {
 		fmt.Fprintf(w, "%s %s", config.Items[i].Status.Conditions[3].Type, config.Items[i].Status.Conditions[0].Status)
 
 	}
+
 }
+
+//}
