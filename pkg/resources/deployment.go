@@ -5,6 +5,8 @@ import (
 	"os"
 	"text/tabwriter"
 
+	extract "github.com/framsouza/eck-diagnostics-parser/pkg/extract"
+	handlingfiles "github.com/framsouza/eck-diagnostics-parser/pkg/handlingfiles"
 	load "github.com/framsouza/eck-diagnostics-parser/pkg/load"
 )
 
@@ -13,13 +15,21 @@ func Deployment() {
 	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
 	defer w.Flush()
 
-	config, _ := load.LoadDeploy("/Users/francismarasouza/eck-diagnostics-parser/tmp/default/deployments.json")
+	abspath, _ := handlingfiles.FindFileAbsPathDeploy(extract.Destination, "deployments.json")
 
-	fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t", "DEPLOYMENT NAME", "REPLICAS")
+	for _, f := range abspath {
+		if f == extract.Destination+"/kube-system/deployments.json" {
+			break
+		}
 
-	for i := range config.Items {
-		fmt.Fprintf(w, "\n%s\t\t\t", config.Items[i].Metadata.Name)
-		fmt.Fprintf(w, "%v\t", config.Items[i].Spec.Replicas)
+		config, _ := load.LoadDeploy(f)
 
+		fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t", "DEPLOYMENT NAME", "REPLICAS")
+
+		for i := range config.Items {
+			fmt.Fprintf(w, "\n%s\t\t\t", config.Items[i].Metadata.Name)
+			fmt.Fprintf(w, "%v\t", config.Items[i].Spec.Replicas)
+
+		}
 	}
 }

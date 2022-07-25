@@ -5,6 +5,8 @@ import (
 	"os"
 	"text/tabwriter"
 
+	extract "github.com/framsouza/eck-diagnostics-parser/pkg/extract"
+	handlingfiles "github.com/framsouza/eck-diagnostics-parser/pkg/handlingfiles"
 	load "github.com/framsouza/eck-diagnostics-parser/pkg/load"
 )
 
@@ -13,19 +15,26 @@ func Kibana() {
 	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
 	defer w.Flush()
 
-	config, _ := load.LoadKibana("/Users/francismarasouza/finding-file/tmp/default/kibana.json")
-	fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t%s\t", "KB NAME", "STATUS", "VERSION", "PHASE", "NODES")
+	absPath, _ := handlingfiles.FindFileAbsPathKB(extract.Destination, "kibana.json")
 
-	for i := range config.Items {
+	for _, f := range absPath {
+		if f == extract.Destination+"/kube-system/kibana.json" {
+			break
+		}
+		config, _ := load.LoadKibana(f)
 
-		fmt.Fprintf(w, "\n%s\t\t", config.Items[i].Metadata.Name)
-		fmt.Fprintf(w, "%s\t\t", config.Items[i].Status.Health)
-		fmt.Fprintf(w, "%s\t\t", config.Items[i].Spec.Version)
-		fmt.Fprintf(w, "%s\t", config.Items[i].Status.AssociationStatus)
-		fmt.Fprintf(w, "%v\t", config.Items[i].Status.AvailableNodes)
+		//config, _ := load.LoadKibana("/Users/francismarasouza/finding-file/tmp/default/kibana.json")
+		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t%s\t", "KB NAME", "STATUS", "VERSION", "PHASE", "NODES")
 
-		// Print labels to compare with the service labels
+		for i := range config.Items {
+
+			fmt.Fprintf(w, "\n%s\t\t", config.Items[i].Metadata.Name)
+			fmt.Fprintf(w, "%s\t\t", config.Items[i].Status.Health)
+			fmt.Fprintf(w, "%s\t\t", config.Items[i].Spec.Version)
+			fmt.Fprintf(w, "%s\t", config.Items[i].Status.AssociationStatus)
+			fmt.Fprintf(w, "%v\t", config.Items[i].Status.AvailableNodes)
+
+		}
+
 	}
-
-	//ADD NODES CONDITIONS
 }

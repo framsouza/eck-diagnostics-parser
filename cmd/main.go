@@ -51,10 +51,10 @@ func main() {
 
 func summary() {
 	fmt.Print("\n\nBASED ON THE OUTPUT ABOVE, MAKE SURE THAT:\n")
-	fmt.Print("- All the services has an endpoint attached to it\n")
+	fmt.Print("- All the Elasticsearch services has an endpoint attached to it\n")
 	fmt.Print("- All the PVC has a Bound status\n")
 	fmt.Print("- All the Elasticsearch Resources are Green and the Phase is \"READY\"\n")
-	fmt.Print("- All the Kibana Resources are Green and the Phase is \"READY\"\n")
+	fmt.Print("- All the Kibana Resources are Green and the Phase is \"READY\" or \"ESTABLISHED\"\n")
 	fmt.Print("- Every pod is RUNNING\n")
 	fmt.Print("- Every pod has the same MEM REQUEST & MEM LIMIT\n\n")
 

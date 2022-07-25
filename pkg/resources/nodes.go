@@ -5,6 +5,7 @@ import (
 	"os"
 	"text/tabwriter"
 
+	extract "github.com/framsouza/eck-diagnostics-parser/pkg/extract"
 	load "github.com/framsouza/eck-diagnostics-parser/pkg/load"
 )
 
@@ -13,10 +14,9 @@ func Nodes() {
 	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
 	defer w.Flush()
 
-	//for _, f := range handlingfiles.FindFile("nodes.json", extract.Destination) {
-	//fmt.Println("NODE FILE", f)
-	//config, _ := load.LoadNodes(f)
-	config, _ := load.LoadNodes("/Users/francismarasouza/eck-diagnostics-parser/tmp/nodes.json")
+	nodespath := extract.Destination + "/nodes.json"
+
+	config, _ := load.LoadNodes(nodespath)
 	fmt.Fprintf(w, "\n%s\t%s\t%s\t%s\t\t%s\t\t%s\t%s\t", "NODE NAME", "CPU CAPACITY", "CPU ALLOCATED", "MEM CAPACITY", "MEM ALLOCATED", "VERSION", "NODE CONDITIONS")
 
 	for i := range config.Items {
@@ -32,7 +32,4 @@ func Nodes() {
 		fmt.Fprintf(w, "%s %s", config.Items[i].Status.Conditions[3].Type, config.Items[i].Status.Conditions[0].Status)
 
 	}
-
 }
-
-//}
