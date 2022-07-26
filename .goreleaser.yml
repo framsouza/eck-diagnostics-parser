@@ -1,5 +1,5 @@
 builds:
-  - binary: askcloudhelloworld
+  - binary: bin/eck-diagnostics-parser
     goos:
       - darwin
       - linux
