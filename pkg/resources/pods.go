@@ -12,53 +12,56 @@ import (
 
 func Pods() {
 	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
+	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
 	abspathpods, _ := handlingfiles.FindFileAbsPathPods(extract.Destination, "pods.json")
 
 	for _, f := range abspathpods {
+		if f == extract.Destination+"/istio-system/pods.json" {
+			break
+		}
+
 		config, _ := load.LoadPods(f)
 
-		fmt.Fprintf(w, "\n\n%s\t%s\t\t%s\t%s\t%s\t%s\t%s\t", "PODS NAME", "STATUS", "MEM REQUEST", "MEM LIMIT", "CPU REQUEST", "CPU LIMIT", "SIDECAR LIMITS AND REQUESTS")
+		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "PODS NAME", "NAMESPACE", "STATUS", "MEM REQUEST", "MEM LIMIT", "CPU REQUEST", "CPU LIMIT")
 
 		for i := range config.Items {
 			fmt.Fprintf(w, "\n%s\t", config.Items[i].Metadata.Name)
-			fmt.Fprintf(w, "%s\t\t", config.Items[i].Status.Phase)
-			for r := range config.Items[i].Spec.Containers {
-				if config.Items[i].Spec.Containers[r].Resources.Requests.Memory == "" {
-					fmt.Fprintf(w, "%s\t", "No Request set")
-				} else {
-					fmt.Fprintf(w, "%s\t", config.Items[i].Spec.Containers[r].Resources.Requests.Memory)
-				}
-
-				if config.Items[i].Spec.Containers[r].Resources.Limits.Memory == "" {
-					fmt.Fprintf(w, "%s\t", "No limit set")
-				} else {
-					fmt.Fprintf(w, "%s\t", config.Items[i].Spec.Containers[r].Resources.Limits.Memory)
-				}
-
-				if config.Items[i].Spec.Containers[r].Resources.Requests.Cpu == "" {
-					fmt.Fprintf(w, "%s\t", "No Request set")
-				} else {
-					fmt.Fprintf(w, "%s\t", config.Items[i].Spec.Containers[r].Resources.Requests.Cpu)
-				}
-
-				if config.Items[i].Spec.Containers[r].Resources.Limits.Cpu == "" {
-					fmt.Fprintf(w, "%s\t", "No limit set")
-				} else {
-					fmt.Fprintf(w, "%s\t", config.Items[i].Spec.Containers[r].Resources.Limits.Cpu)
-
-				}
+			fmt.Fprintf(w, "\t%s\t", config.Items[i].Metadata.Namespace)
+			fmt.Fprintf(w, "\t%s\t", config.Items[i].Status.Phase)
+			if config.Items[i].Spec.Containers[0].Resources.Requests.Memory == "" {
+				fmt.Fprintf(w, "\t%s\t", "Not set")
+			} else {
+				fmt.Fprintf(w, "\t%s\t", config.Items[i].Spec.Containers[0].Resources.Requests.Memory)
 			}
 
-			//Check initcontainers
+			if config.Items[i].Spec.Containers[0].Resources.Limits.Memory == "" {
+				fmt.Fprintf(w, "\t%s\t", "Not set")
+			} else {
+				fmt.Fprintf(w, "\t%s\t", config.Items[i].Spec.Containers[0].Resources.Limits.Memory)
+			}
 
-			//for c := range config.Items[i].Status.InitContainerStatuses {
-			//	fmt.Fprintf(w, "%s %s, ", config.Items[i].Status.InitContainerStatuses[c].Name, config.Items[i].Status.InitContainerStatuses[c].State.Terminated.Reason)
+			if config.Items[i].Spec.Containers[0].Resources.Requests.Cpu == "" {
+				fmt.Fprintf(w, "\t%s\t", "Not set")
+			} else {
+				fmt.Fprintf(w, "\t%s\t", config.Items[i].Spec.Containers[0].Resources.Requests.Cpu)
+			}
 
-			//}
+			if config.Items[i].Spec.Containers[0].Resources.Limits.Cpu == "" {
+				fmt.Fprintf(w, "\t%s\t", "Not set")
+			} else {
+				fmt.Fprintf(w, "\t%s\t", config.Items[i].Spec.Containers[0].Resources.Limits.Cpu)
 
+			}
 		}
+
+		//Check initcontainers
+
+		//for c := range config.Items[i].Status.InitContainerStatuses {
+		//	fmt.Fprintf(w, "%s %s, ", config.Items[i].Status.InitContainerStatuses[c].Name, config.Items[i].Status.InitContainerStatuses[c].State.Terminated.Reason)
+
+		//}
+
 	}
 }

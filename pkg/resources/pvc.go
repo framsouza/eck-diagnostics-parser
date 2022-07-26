@@ -12,7 +12,7 @@ import (
 
 func PVC() {
 	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
+	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
 	absPath, _ := handlingfiles.FindFileAbsPathPVC(extract.Destination, "persistentvolumeclaims.json")
@@ -21,6 +21,13 @@ func PVC() {
 		if f == extract.Destination+"/kube-system/persistentvolumeclaims.json" {
 			break
 		}
+		if f == extract.Destination+"/istio-system/persistentvolumeclaims.json" {
+			break
+		}
+		if f == extract.Destination+"/elastic-system/persistentvolumeclaims.json" {
+			break
+		}
+
 		config, _ := load.LoadPVC(f)
 
 		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "PVC NAME", "STATUS", "CAPACITY", "VOLUME NAME", "SC NAME", "ACCESS MODE")

@@ -12,13 +12,16 @@ import (
 
 func StatefulSet() {
 	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
+	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
 	absPath, _ := handlingfiles.FindFileAbsPathSTS(extract.Destination, "statefulsets.json")
 
 	for _, f := range absPath {
 		if f == extract.Destination+"/kube-system/statefulsets.json" {
+			break
+		}
+		if f == extract.Destination+"/istio-system/statefulsets.json" {
 			break
 		}
 
@@ -34,7 +37,7 @@ func StatefulSet() {
 				for e := range config.Items[i].Spec.Template.Spec.Containers[c].Env {
 					list := config.Items[i].Spec.Template.Spec.Containers[c].Env[e]
 					if list.Name == "ES_JAVA_OPTS" {
-						fmt.Fprintf(w, "%v\t\t\t", config.Items[i].Spec.Template.Spec.Containers[c].Env[e].Value)
+						fmt.Fprintf(w, "%v\t\t", config.Items[i].Spec.Template.Spec.Containers[c].Env[e].Value)
 					}
 				}
 			}

@@ -12,13 +12,19 @@ import (
 
 func Es() {
 	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
+	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
 	absPath, _ := handlingfiles.FindFileAbsPathES(extract.Destination, "elasticsearch.json")
 
 	for _, f := range absPath {
 		if f == extract.Destination+"/kube-system/elasticsearch.json" {
+			break
+		}
+		if f == extract.Destination+"/istio-system/elasticsearch.json" {
+			break
+		}
+		if f == extract.Destination+"/elastic-system/elasticsearch.json" {
 			break
 		}
 

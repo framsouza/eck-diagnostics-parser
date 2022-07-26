@@ -11,7 +11,7 @@ import (
 
 func StorageClass() {
 	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
+	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
 	scpath := extract.Destination + "/storageclasses.json"

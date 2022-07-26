@@ -12,7 +12,7 @@ import (
 
 func Service() {
 	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
+	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
 	absPath, _ := handlingfiles.FindFileAbsPathServices(extract.Destination, "services.json")
@@ -25,6 +25,10 @@ func Service() {
 		if f == extract.Destination+"/elastic-system/services.json" {
 			break
 		}
+		if f == extract.Destination+"/istio-system/services.json" {
+			break
+		}
+
 		config, _ := load.LoadService(f)
 		ep, _ := load.LoadEndPoint(endPoint[0])
 

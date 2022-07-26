@@ -12,7 +12,7 @@ import (
 
 func Kibana() {
 	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
+	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
 	absPath, _ := handlingfiles.FindFileAbsPathKB(extract.Destination, "kibana.json")
@@ -21,6 +21,13 @@ func Kibana() {
 		if f == extract.Destination+"/kube-system/kibana.json" {
 			break
 		}
+		if f == extract.Destination+"/istio-system/kibana.json" {
+			break
+		}
+		if f == extract.Destination+"/elastic-system/kibana.json" {
+			break
+		}
+
 		config, _ := load.LoadKibana(f)
 
 		fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "KB NAME", "STATUS", "VERSION", "PHASE", "NODES", "NAMESPACE")
