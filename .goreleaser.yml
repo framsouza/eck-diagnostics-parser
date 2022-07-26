@@ -1,4 +1,5 @@
 builds:
+  - main: ./cmd/
   - binary: eck-diagnostics-parser
     goos:
       - darwin
@@ -8,8 +9,6 @@ builds:
       - arm64
     env:
       - CGO_ENABLED=0
-    flags:
-      - -mod=vendor
 
 release:
   prerelease: auto
