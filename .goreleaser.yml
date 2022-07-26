@@ -1,5 +1,5 @@
 builds:
-  - binary: bin/eck-diagnostics-parser
+  - binary: eck-diagnostics-parser
     goos:
       - darwin
       - linux
