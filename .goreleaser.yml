@@ -16,6 +16,16 @@ release:
 universal_binaries:
   - replace: true
 
+brews:
+  -
+    name: eck-diagnostics-parser
+    homepage: https://github.com/framsouza/eck-diagnostics-parser
+    tap:
+      owner: framsouza
+      name: homebrew-framsouza
+    commit_author:
+      name: framsouza
+      email: fram.souza14@gmail.com
 
 checksum:
   name_template: 'checksums.txt'
