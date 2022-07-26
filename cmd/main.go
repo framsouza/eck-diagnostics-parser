@@ -12,7 +12,7 @@ import (
 
 var (
 	zipfile     = flag.String("zipfile", "", "Enter zip file name")
-	destination = flag.String("destination", "./tmp/", "Enter the destination path")
+	destination = "./tmp/"
 )
 
 func main() {
@@ -22,13 +22,8 @@ func main() {
 		flag.Usage()
 		os.Exit(2)
 	}
-	if *destination == "" {
-		fmt.Fprintln(os.Stderr, "Folder not found")
-		flag.Usage()
-		os.Exit(2)
-	}
 
-	err := extract.UnzipSource(*zipfile, *destination)
+	err := extract.UnzipSource(*zipfile, destination)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -48,7 +43,7 @@ func main() {
 	resources.StorageClass()
 	summary()
 	// clean up destination dir
-	//os.RemoveAll(*destination)
+	os.RemoveAll(destination)
 
 }
 
