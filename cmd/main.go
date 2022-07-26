@@ -43,7 +43,7 @@ func main() {
 	resources.StorageClass()
 	summary()
 	// clean up destination dir
-	//os.RemoveAll(destination)
+	os.RemoveAll(destination)
 
 }
 
