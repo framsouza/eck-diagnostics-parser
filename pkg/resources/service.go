@@ -22,17 +22,19 @@ func Service() {
 		if f == extract.Destination+"/kube-system/services.json" {
 			break
 		}
+		if f == extract.Destination+"/elastic-system/services.json" {
+			break
+		}
 		config, _ := load.LoadService(f)
 		ep, _ := load.LoadEndPoint(endPoint[0])
 
-		//config, _ := load.LoadService("/Users/francismarasouza/finding-file/tmp/default/services.json")
-		//ep, _ := load.LoadEndPoint("/Users/francismarasouza/finding-file/tmp/default/endpoints.json")
-
-		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t", "SERVICE NAME", "TYPE", "ENDPOINTS")
+		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t", "SERVICE NAME", "TYPE", "NAMESPACE", "ENDPOINTS")
 
 		for i := range config.Items {
+
 			fmt.Fprintf(w, "\n%s\t\t", config.Items[i].Metadata.Name)
 			fmt.Fprintf(w, "%s\t\t", config.Items[i].Spec.Type)
+			fmt.Fprintf(w, "%s\t\t", config.Items[i].Metadata.Namespace)
 			for e := range ep.Items {
 				if ep.Items[e].Metadata.Name == config.Items[i].Metadata.Name {
 					for a := range ep.Items[e].Subsets {

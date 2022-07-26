@@ -24,17 +24,16 @@ func Es() {
 
 		config, _ := load.LoadES(f)
 
-		//config, _ := load.LoadES("/Users/francismarasouza/finding-file/tmp/default/elasticsearch.json")
-		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t", "ES NAME", "STATUS", "VERSION", "PHASE", "NODES")
+		fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "ES NAME", "STATUS", "VERSION", "PHASE", "NODES", "NAMESPACE")
 
 		for i := range config.Items {
-			// Add condition to print "NOT SPECIFIED" in case there's not limit/request set
 
-			fmt.Fprintf(w, "\n%s\t\t", config.Items[i].Metadata.Name)
+			fmt.Fprintf(w, "\n%s\t\t\t", config.Items[i].Metadata.Name)
 			fmt.Fprintf(w, "%s\t\t", config.Items[i].Status.Health)
 			fmt.Fprintf(w, "%s\t\t", config.Items[i].Spec.Version)
 			fmt.Fprintf(w, "%s\t\t", config.Items[i].Status.Phase)
-			fmt.Fprintf(w, "%v\t", config.Items[i].Status.AvailableNodes)
+			fmt.Fprintf(w, "%v\t\t", config.Items[i].Status.AvailableNodes)
+			fmt.Fprintf(w, "%v\t", config.Items[i].Metadata.Namespace)
 
 		}
 	}

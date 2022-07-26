@@ -45,7 +45,10 @@ func main() {
 	resources.Deployment()
 	resources.PVC()
 	resources.Service()
+	resources.StorageClass()
 	summary()
+	// clean up destination dir
+	//os.RemoveAll(*destination)
 
 }
 

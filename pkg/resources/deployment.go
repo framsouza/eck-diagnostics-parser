@@ -24,11 +24,12 @@ func Deployment() {
 
 		config, _ := load.LoadDeploy(f)
 
-		fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t", "DEPLOYMENT NAME", "REPLICAS")
+		fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t%s\t\t", "DEPLOYMENT NAME", "REPLICAS", "NAMESPACE")
 
 		for i := range config.Items {
 			fmt.Fprintf(w, "\n%s\t\t\t", config.Items[i].Metadata.Name)
-			fmt.Fprintf(w, "%v\t", config.Items[i].Spec.Replicas)
+			fmt.Fprintf(w, "%v\t\t", config.Items[i].Spec.Replicas)
+			fmt.Fprintf(w, "%v\t", config.Items[i].Metadata.Namespace)
 
 		}
 	}

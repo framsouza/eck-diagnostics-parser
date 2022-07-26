@@ -23,16 +23,16 @@ func Kibana() {
 		}
 		config, _ := load.LoadKibana(f)
 
-		//config, _ := load.LoadKibana("/Users/francismarasouza/finding-file/tmp/default/kibana.json")
-		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t%s\t", "KB NAME", "STATUS", "VERSION", "PHASE", "NODES")
+		fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "KB NAME", "STATUS", "VERSION", "PHASE", "NODES", "NAMESPACE")
 
 		for i := range config.Items {
 
-			fmt.Fprintf(w, "\n%s\t\t", config.Items[i].Metadata.Name)
+			fmt.Fprintf(w, "\n%s\t\t\t", config.Items[i].Metadata.Name)
 			fmt.Fprintf(w, "%s\t\t", config.Items[i].Status.Health)
 			fmt.Fprintf(w, "%s\t\t", config.Items[i].Spec.Version)
-			fmt.Fprintf(w, "%s\t", config.Items[i].Status.AssociationStatus)
-			fmt.Fprintf(w, "%v\t", config.Items[i].Status.AvailableNodes)
+			fmt.Fprintf(w, "%s\t\t", config.Items[i].Status.AssociationStatus)
+			fmt.Fprintf(w, "%v\t\t", config.Items[i].Status.AvailableNodes)
+			fmt.Fprintf(w, "%v\t", config.Items[i].Metadata.Namespace)
 
 		}
 

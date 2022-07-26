@@ -6,8 +6,6 @@ import (
 )
 
 var (
-	files           []string
-	absPathNodes    []string
 	absPathES       []string
 	absPathKB       []string
 	absPathSTS      []string
@@ -20,13 +18,11 @@ var (
 
 func FindFileAbsPathPods(d, filename string) ([]string, error) {
 	fileErr := filepath.Walk(d, func(path string, info os.FileInfo, err error) error {
-		// path is the absolute path.
 		if err != nil {
 			return err
 		}
 		for {
 			if info.Name() == filename {
-				// if the filename is found append the path to the string slice.
 				absPathPods = append(absPathPods, path)
 			}
 			break
@@ -58,26 +54,6 @@ func FindFileAbsPathDeploy(d, filename string) ([]string, error) {
 		return []string{}, fileErr
 	}
 	return absPathDeploy, nil
-}
-
-func FindFileAbsPathNodes(d, filename string) ([]string, error) {
-	fileErr := filepath.Walk(d, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			return err
-		}
-		for {
-			if info.Name() == filename {
-				absPathNodes = append(absPathNodes, path)
-			}
-			break
-		}
-
-		return nil
-	})
-	if fileErr != nil {
-		return []string{}, fileErr
-	}
-	return absPathNodes, nil
 }
 
 func FindFileAbsPathServices(d, filename string) ([]string, error) {
@@ -218,63 +194,8 @@ func FindFile(filename, d string) []string {
 		}
 		return nil
 	})
-
 	return files
 
 }
 
-/*
-func FindOpNS() string {
-	str := "2022/03/10 07:44:23 ECK diagnostics with parameters: {DiagnosticImage:docker.elastic.co/eck-dev/support-diagnostics:8.1.4 ECKVersion: Kubeconfig: OperatorNamespaces:[elastic-system] ResourcesNamespaces:[default kube-system] OutputDir: RunStackDiagnostics:true Verbose:false}"
-	split := strings.Split(str, " ")
-
-	operatorns := string(split[9]) // OPERATOR NAMESPACE
-	slipop := strings.Split(operatorns, ":")
-	triml := strings.TrimLeft(string(slipop[1]), "[")
-	trimr := strings.TrimRight(triml, "]")
-
-	return trimr
-
-}
-
-func FindRsNS() string {
-	str := "2022/03/10 07:44:23 ECK diagnostics with parameters: {DiagnosticImage:docker.elastic.co/eck-dev/support-diagnostics:8.1.4 ECKVersion: Kubeconfig: OperatorNamespaces:[elastic-system] ResourcesNamespaces:[default kube-system] OutputDir: RunStackDiagnostics:true Verbose:false}"
-	split := strings.Split(str, ":")
-
-	rsns := split[9] // RESOURCES NAMESPACE
-	rm := strings.TrimSuffix(rsns, " OutputDir")
-	triml := strings.TrimLeft(rm, "[")
-	trimr := strings.TrimRight(triml, "]")
-
-	return trimr
-
-}
-
-// RETURN WORKS ONLY WHEN I CALL IT USING fmt.PrintLN and the function name (see main.go)
-/*func ListDir(d string) []string {
-	var files []string
-	//var file string
-	err := filepath.Walk(d, func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			fmt.Println(err)
-			return nil
-		}
-
-		if !info.IsDir() {
-			files = append(files, path)
-		}
-
-		return nil
-	})
-
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	//fmt.Println(files)
-
-	//return files, err
-	return files
-
-}
 */

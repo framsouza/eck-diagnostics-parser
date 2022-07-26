@@ -23,11 +23,10 @@ func PVC() {
 		}
 		config, _ := load.LoadPVC(f)
 
-		//config, _ := load.LoadPVC("/Users/francismarasouza/finding-file/tmp/default/persistentvolumeclaims.json")
-		fmt.Fprintf(w, "\n\n%s\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "PVC NAME", "STATUS", "CAPACITY", "VOLUME NAME", "SC NAME", "ACCESS MODE")
+		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "PVC NAME", "STATUS", "CAPACITY", "VOLUME NAME", "SC NAME", "ACCESS MODE")
 
 		for i := range config.Items {
-			fmt.Fprintf(w, "\n%s\t", config.Items[i].Metadata.Name)
+			fmt.Fprintf(w, "\n%s\t\t", config.Items[i].Metadata.Name)
 			fmt.Fprintf(w, "%v\t\t", config.Items[i].Status.Phase)
 			fmt.Fprintf(w, "%v\t\t", config.Items[i].Status.Capacity.Storage)
 			fmt.Fprintf(w, "%v\t\t", config.Items[i].Spec.VolumeName)

@@ -24,20 +24,18 @@ func StatefulSet() {
 
 		config, _ := load.LoadStatefulSet(f)
 
-		//config, _ := load.LoadStatefulSet("/Users/francismarasouza/finding-file/tmp/default/statefulsets.json")
-		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t", "STATEFULSET NAME", "REPLICAS", "HEAP SIZE")
+		fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t%s\t\t%s\t\t", "STATEFULSET NAME", "REPLICAS", "NAMESPACE", "HEAP SIZE")
 
 		for i := range config.Items {
-			fmt.Fprintf(w, "\n%s\t\t", config.Items[i].Metadata.Name)
+			fmt.Fprintf(w, "\n%s\t\t\t", config.Items[i].Metadata.Name)
 			fmt.Fprintf(w, "%v\t\t", config.Items[i].Spec.Replicas)
-			//fmt.Fprintf(w, "%v\t", config.Items[i].Spec.Template.Spec.Containers)
+			fmt.Fprintf(w, "%v\t\t", config.Items[i].Metadata.Namespace)
 			for c := range config.Items[i].Spec.Template.Spec.Containers {
 				for e := range config.Items[i].Spec.Template.Spec.Containers[c].Env {
 					list := config.Items[i].Spec.Template.Spec.Containers[c].Env[e]
 					if list.Name == "ES_JAVA_OPTS" {
 						fmt.Fprintf(w, "%v\t\t\t", config.Items[i].Spec.Template.Spec.Containers[c].Env[e].Value)
 					}
-					// PRINT SOMETHING IF HEAP IS NOT SET OR SEND IT TO THE SUMMARY.GO
 				}
 			}
 

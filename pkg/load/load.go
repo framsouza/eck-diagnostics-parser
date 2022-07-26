@@ -2001,6 +2001,85 @@ type Manifest struct {
 	} `json:"includedDiagnostics"`
 }
 
+type StorageClass struct {
+	APIVersion string `json:"apiVersion"`
+	Items      []struct {
+		AllowVolumeExpansion bool `json:"allowVolumeExpansion"`
+		AllowedTopologies    []struct {
+			MatchLabelExpressions []struct {
+				Key    string   `json:"key"`
+				Values []string `json:"values"`
+			} `json:"matchLabelExpressions"`
+		} `json:"allowedTopologies,omitempty"`
+		APIVersion string `json:"apiVersion"`
+		Kind       string `json:"kind"`
+		Metadata   struct {
+			Annotations *struct {
+				Kubectl_kubernetes_io_lastAppliedConfiguration string `json:"kubectl.kubernetes.io/last-applied-configuration,omitempty"`
+				Storageclass_kubernetes_io_isDefaultClass      string `json:"storageclass.kubernetes.io/is-default-class,omitempty"`
+			} `json:"annotations,omitempty"`
+			CreationTimestamp time.Time `json:"creationTimestamp"`
+			Labels            struct {
+				Addonmanager_Kubernetes_Io_Mode string `json:"addonmanager.kubernetes.io/mode,omitempty"`
+				Kubernetes_io_clusterService    string `json:"kubernetes.io/cluster-service"`
+			} `json:"labels"`
+			ManagedFields []struct {
+				APIVersion string `json:"apiVersion"`
+				FieldsType string `json:"fieldsType"`
+				FieldsV1   struct {
+					F_AllowVolumeExpansion struct{}  `json:"f:allowVolumeExpansion"`
+					F_AllowedTopologies    *struct{} `json:"f:allowedTopologies,omitempty"`
+					F_Metadata             struct {
+						F_Annotations *struct {
+							_                                                struct{}  `json:"."`
+							F_kubectl_kubernetes_io_lastAppliedConfiguration *struct{} `json:"f:kubectl.kubernetes.io/last-applied-configuration,omitempty"`
+							F_storageclass_kubernetes_io_isDefaultClass      *struct{} `json:"f:storageclass.kubernetes.io/is-default-class,omitempty"`
+						} `json:"f:annotations,omitempty"`
+						F_Labels struct {
+							_                                 struct{}  `json:"."`
+							F_Addonmanager_Kubernetes_Io_Mode *struct{} `json:"f:addonmanager.kubernetes.io/mode,omitempty"`
+							F_kubernetes_io_clusterService    struct{}  `json:"f:kubernetes.io/cluster-service"`
+						} `json:"f:labels"`
+					} `json:"f:metadata"`
+					F_MountOptions *struct{} `json:"f:mountOptions,omitempty"`
+					F_Parameters   struct {
+						_                    struct{}  `json:"."`
+						F_Cachingmode        *struct{} `json:"f:cachingmode,omitempty"`
+						F_Kind               *struct{} `json:"f:kind,omitempty"`
+						F_SkuName            *struct{} `json:"f:skuName,omitempty"`
+						F_Skuname            *struct{} `json:"f:skuname,omitempty"`
+						F_Storageaccounttype *struct{} `json:"f:storageaccounttype,omitempty"`
+					} `json:"f:parameters"`
+					F_Provisioner       struct{} `json:"f:provisioner"`
+					F_ReclaimPolicy     struct{} `json:"f:reclaimPolicy"`
+					F_VolumeBindingMode struct{} `json:"f:volumeBindingMode"`
+				} `json:"fieldsV1"`
+				Manager   string    `json:"manager"`
+				Operation string    `json:"operation"`
+				Time      time.Time `json:"time"`
+			} `json:"managedFields"`
+			Name            string `json:"name"`
+			ResourceVersion string `json:"resourceVersion"`
+			Uid             string `json:"uid"`
+		} `json:"metadata"`
+		MountOptions []string `json:"mountOptions,omitempty"`
+		Parameters   struct {
+			Cachingmode        string `json:"cachingmode,omitempty"`
+			Kind               string `json:"kind,omitempty"`
+			SkuName            string `json:"skuName,omitempty"`
+			Skuname            string `json:"skuname,omitempty"`
+			Storageaccounttype string `json:"storageaccounttype,omitempty"`
+		} `json:"parameters"`
+		Provisioner       string `json:"provisioner"`
+		ReclaimPolicy     string `json:"reclaimPolicy"`
+		VolumeBindingMode string `json:"volumeBindingMode"`
+	} `json:"items"`
+	Kind     string `json:"kind"`
+	Metadata struct {
+		ResourceVersion string `json:"resourceVersion"`
+	} `json:"metadata"`
+}
+
 func LoadNodes(filename string) (Nodes, error) {
 	var config Nodes
 	file, err := os.Open(filename)
@@ -2179,6 +2258,22 @@ func LoadEndPoint(filename string) (EndPoint, error) {
 
 func LoadManifest(filename string) (Manifest, error) {
 	var config Manifest
+	file, err := os.Open(filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
+	if err != nil {
+		return config, err
+	}
+
+	jsonparser := json.NewDecoder(file)
+	err = jsonparser.Decode(&config)
+	return config, err
+}
+
+func LoadStorageClass(filename string) (StorageClass, error) {
+	var config StorageClass
 	file, err := os.Open(filename)
 	if err != nil {
 		log.Fatal(err)
