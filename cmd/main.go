@@ -49,11 +49,13 @@ func main() {
 
 func summary() {
 	fmt.Print("\n\nBASED ON THE OUTPUT ABOVE, MAKE SURE THAT:\n")
-	fmt.Print("- All the Elasticsearch services has an endpoint attached to it\n")
+	fmt.Print("- The Elasticsearch services has an endpoint attached to it, if there's no endpoint the services won't be able to connect to the pods\n")
 	fmt.Print("- All the PVC has a Bound status\n")
-	fmt.Print("- All the Elasticsearch Resources are Green and the Phase is \"READY\"\n")
-	fmt.Print("- All the Kibana Resources are Green and the Phase is \"READY\" or \"ESTABLISHED\"\n")
-	fmt.Print("- Every pod is RUNNING\n")
-	fmt.Print("- Every pod has the same MEM REQUEST & MEM LIMIT\n\n")
+	fmt.Print("- All the Elasticsearch Resources are Green and the Phase is \"READY\", if the status is \"ApplyingChanges\" check the Operator logs\n")
+	fmt.Print("- All the Kibana Resources are Green and the Phase is \"READY\" or \"ESTABLISHED\", if the status is \"ApplyingChanges\" check the Operator logs\n")
+	fmt.Print("- All the Elasticsearch and Kibana pods has the RUNNING status, if not, check the pod logs\n")
+	fmt.Print("- All the Elasticsearch has the same MEM REQUEST & MEM LIMIT, it's very important to ensure quality of Serivce\n")
+	fmt.Print("- Starting with Elasticsearch 7.11, unless manually overridden, heap size is automatically calculated based on the available memory, if the HEAP SIZE column is empty for the Elasticsearch statefulsets, make sure Elasticsearch is >7.11\n")
+	fmt.Print("- If you desire to increase the disk size, make sure you are ran the latest ECK diagnostics and check the if ALLOW EXPANSION is true, if that is the case you can easily change the PVC volume size in the Elasticsearch manifest \n\n")
 
 }

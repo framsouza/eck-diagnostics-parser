@@ -24,7 +24,7 @@ func Pods() {
 
 		config, _ := load.LoadPods(f)
 
-		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "PODS NAME", "NAMESPACE", "STATUS", "MEM REQUEST", "MEM LIMIT", "CPU REQUEST", "CPU LIMIT")
+		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "PODS NAME", "NAMESPACE", "STATUS", "MEM REQUEST", "MEM LIMIT", "CPU REQUEST", "CPU LIMIT", "NODE NAME")
 
 		for i := range config.Items {
 			fmt.Fprintf(w, "\n%s\t", config.Items[i].Metadata.Name)
@@ -54,6 +54,8 @@ func Pods() {
 				fmt.Fprintf(w, "\t%s\t", config.Items[i].Spec.Containers[0].Resources.Limits.Cpu)
 
 			}
+			fmt.Fprintf(w, "\t%s\t", config.Items[i].Spec.NodeName)
+
 		}
 
 		//Check initcontainers

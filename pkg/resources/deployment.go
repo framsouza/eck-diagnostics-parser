@@ -18,9 +18,9 @@ func Deployment() {
 	abspath, _ := handlingfiles.FindFileAbsPathDeploy(extract.Destination, "deployments.json")
 
 	for _, f := range abspath {
-		//if f == extract.Destination+"/kube-system/deployments.json" {
-		//	break
-		//}
+		if f == extract.Destination+"/kube-system/deployments.json" {
+			break
+		}
 		if f == extract.Destination+"/istio-system/deployments.json" {
 			break
 		}
