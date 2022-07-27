@@ -12,7 +12,7 @@ import (
 
 var (
 	zipfile     = flag.String("zipfile", "", "Enter zip file name")
-	destination = "./tmp/"
+	destination = "./tmpdir/"
 )
 
 func main() {
