@@ -2,7 +2,6 @@ package resources
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"text/tabwriter"
 
@@ -16,10 +15,7 @@ func PVC() {
 	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
-	absPath, err := handlingfiles.FindFileAbsPathPVC(extract.Destination, "persistentvolumeclaims.json")
-	if err != nil {
-		log.Fatal(err)
-	}
+	absPath, _ := handlingfiles.FindFileAbsPathPVC(extract.Destination, "persistentvolumeclaims.json")
 
 	for _, f := range absPath {
 		if f == extract.Destination+"/kube-system/persistentvolumeclaims.json" {

@@ -1886,15 +1886,15 @@ type Service struct {
 			ExternalTrafficPolicy string   `json:"externalTrafficPolicy,omitempty"`
 			IpFamilies            []string `json:"ipFamilies"`
 			IpFamilyPolicy        string   `json:"ipFamilyPolicy"`
-			Ports                 []struct {
+			/*Ports                 []struct {
 				Name       string `json:"name"`
 				NodePort   int    `json:"nodePort,omitempty"`
 				Port       int    `json:"port"`
 				Protocol   string `json:"protocol"`
 				TargetPort int    `json:"targetPort"`
 			} `json:"ports"`
-			PublishNotReadyAddresses bool `json:"publishNotReadyAddresses,omitempty"`
-			Selector                 *struct {
+			*/PublishNotReadyAddresses bool `json:"publishNotReadyAddresses,omitempty"`
+			Selector                   *struct {
 				Common_K8S_Elastic_Co_Type                   string `json:"common.k8s.elastic.co/type"`
 				Elasticsearch_k8s_elastic_co_clusterName     string `json:"elasticsearch.k8s.elastic.co/cluster-name,omitempty"`
 				Elasticsearch_k8s_elastic_co_statefulsetName string `json:"elasticsearch.k8s.elastic.co/statefulset-name,omitempty"`

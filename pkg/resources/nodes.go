@@ -2,7 +2,6 @@ package resources
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"text/tabwriter"
 
@@ -19,10 +18,8 @@ func Nodes() {
 
 	nodespath := extract.Destination + "/nodes.json"
 
-	config, err := load.LoadNodes(nodespath)
-	if err != nil {
-		log.Fatal(err)
-	}
+	config, _ := load.LoadNodes(nodespath)
+
 	fmt.Fprintf(w, "\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t", "NODE NAME", "CPU CAPACITY", "CPU ALLOCATED", "MEM CAPACITY", "MEM ALLOCATED", "VERSION", "NODE READY")
 
 	for i := range config.Items {

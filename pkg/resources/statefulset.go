@@ -2,7 +2,6 @@ package resources
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"text/tabwriter"
 
@@ -16,10 +15,7 @@ func StatefulSet() {
 	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
-	absPath, err := handlingfiles.FindFileAbsPathSTS(extract.Destination, "statefulsets.json")
-	if err != nil {
-		log.Fatal(err)
-	}
+	absPath, _ := handlingfiles.FindFileAbsPathSTS(extract.Destination, "statefulsets.json")
 
 	for _, f := range absPath {
 		if f == extract.Destination+"/kube-system/statefulsets.json" {

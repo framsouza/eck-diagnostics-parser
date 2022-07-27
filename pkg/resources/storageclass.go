@@ -2,7 +2,6 @@ package resources
 
 import (
 	"fmt"
-	"log"
 	"os"
 	"text/tabwriter"
 
@@ -19,10 +18,7 @@ func StorageClass() {
 
 	if _, err := os.Stat(scpath); err == nil {
 
-		config, err := load.LoadStorageClass(scpath)
-		if err != nil {
-			log.Fatal(err)
-		}
+		config, _ := load.LoadStorageClass(scpath)
 
 		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "STORAGE CLASS NAME", "PROVISIONER", "ALLOW EXPANSION", "VOLUME BIND MODE", "RECLAIM POLICY")
 
