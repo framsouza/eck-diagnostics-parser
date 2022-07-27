@@ -38,7 +38,7 @@ func main() {
 	resources.Kibana()
 	resources.StatefulSet()
 	resources.Deployment()
-	//resources.PVC()
+	resources.PVC()
 	resources.Service()
 	resources.StorageClass()
 	summary()
