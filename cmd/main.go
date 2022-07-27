@@ -12,7 +12,7 @@ import (
 
 var (
 	zipfile     = flag.String("zipfile", "", "Enter zip file name")
-	destination = "./tmp/"
+	destination = "/tmp/"
 )
 
 func main() {
@@ -43,7 +43,7 @@ func main() {
 	resources.StorageClass()
 	summary()
 	// clean up destination dir
-	//os.RemoveAll(destination)
+	os.RemoveAll(destination)
 
 }
 
