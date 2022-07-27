@@ -1,8 +1,10 @@
 package findfile
 
 import (
+	"log"
 	"os"
 	"path/filepath"
+	"regexp"
 )
 
 var (
@@ -14,6 +16,7 @@ var (
 	absPathDeploy   []string
 	absPathService  []string
 	absPathEndpoint []string
+	DeployPath      []string
 )
 
 func FindFileAbsPathPods(d, filename string) ([]string, error) {
@@ -176,7 +179,7 @@ func FindFileAbsPathSTS(d, filename string) ([]string, error) {
 	return absPathSTS, nil
 }
 
-/* TRY TO MAKE IT WORK AS A GLOBAL FUNC FOR ALL THE FILES
+// TRY TO MAKE IT WORK AS A GLOBAL FUNC FOR ALL THE FILES
 func FindFile(filename, d string) []string {
 	filepath.Walk(d, func(path string, f os.FileInfo, _ error) error {
 		if !f.IsDir() {
@@ -187,15 +190,13 @@ func FindFile(filename, d string) []string {
 					log.Fatal(err)
 				}
 
-				files = append(files, absolutefilepath)
+				DeployPath = append(DeployPath, absolutefilepath)
 
 			}
 
 		}
 		return nil
 	})
-	return files
+	return DeployPath
 
 }
-
-*/

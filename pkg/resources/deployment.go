@@ -12,12 +12,15 @@ import (
 
 func Deployment() {
 	w := new(tabwriter.Writer)
-	w.Init(os.Stdout, 8, 8, 0, '\t', 0)
+	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
-	abspath, _ := handlingfiles.FindFileAbsPathDeploy(extract.Destination, "deployments.json")
+	//abspath, _ := handlingfiles.FindFileAbsPathDeploy(extract.Destination, "deployments.json")
+	deploypath := handlingfiles.FindFile("deployments.json", extract.Destination)
 
-	for _, f := range abspath {
+	//for _, f := range abspath {
+
+	for _, f := range deploypath {
 		if f == extract.Destination+"/kube-system/deployments.json" {
 			break
 		}
