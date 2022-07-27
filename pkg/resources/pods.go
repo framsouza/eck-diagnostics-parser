@@ -16,7 +16,10 @@ func Pods() {
 	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
-	abspathpods, _ := handlingfiles.FindFileAbsPathPods(extract.Destination, "pods.json")
+	abspathpods, err := handlingfiles.FindFileAbsPathPods(extract.Destination, "pods.json")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	for _, f := range abspathpods {
 		if f == extract.Destination+"/istio-system/pods.json" {
