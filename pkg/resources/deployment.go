@@ -2,6 +2,7 @@ package resources
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"text/tabwriter"
 
@@ -28,7 +29,10 @@ func Deployment() {
 			break
 		}
 
-		config, _ := load.LoadDeploy(f)
+		config, err := load.LoadDeploy(f)
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		fmt.Fprintf(w, "\n\n%s\t\t\t%s\t\t%s\t\t", "DEPLOYMENT NAME", "REPLICAS", "NAMESPACE")
 
