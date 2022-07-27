@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io/ioutil"
+	"log"
 
 	extract "github.com/framsouza/eck-diagnostics-parser/pkg/extract"
 	load "github.com/framsouza/eck-diagnostics-parser/pkg/load"
@@ -12,7 +13,11 @@ import (
 func DiagV() {
 	diagv := extract.Destination + "/version.json"
 
-	config, _ := load.LoadDiagV(diagv)
+	config, err := load.LoadDiagV(diagv)
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	fmt.Println("\nDiagnostic version is", config.DiagnosticsVersion.Version)
 
 }

@@ -2,6 +2,7 @@ package resources
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"text/tabwriter"
 
@@ -29,8 +30,14 @@ func Service() {
 			break
 		}
 
-		config, _ := load.LoadService(f)
-		ep, _ := load.LoadEndPoint(endPoint[0])
+		config, err := load.LoadService(f)
+		if err != nil {
+			log.Fatal(err)
+		}
+		ep, err := load.LoadEndPoint(endPoint[0])
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t", "SERVICE NAME", "TYPE", "NAMESPACE", "ENDPOINTS")
 

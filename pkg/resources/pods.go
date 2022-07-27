@@ -2,6 +2,7 @@ package resources
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"text/tabwriter"
 
@@ -22,7 +23,10 @@ func Pods() {
 			break
 		}
 
-		config, _ := load.LoadPods(f)
+		config, err := load.LoadPods(f)
+		if err != nil {
+			log.Fatal(err)
+		}
 
 		fmt.Fprintf(w, "\n\n%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t%s\t\t", "PODS NAME", "NAMESPACE", "STATUS", "MEM REQUEST", "MEM LIMIT", "CPU REQUEST", "CPU LIMIT", "NODE NAME")
 

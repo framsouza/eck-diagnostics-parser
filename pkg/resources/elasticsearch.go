@@ -2,6 +2,7 @@ package resources
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"text/tabwriter"
 
@@ -15,7 +16,10 @@ func Es() {
 	w.Init(os.Stdout, 10, 10, 0, ' ', 0)
 	defer w.Flush()
 
-	absPath, _ := handlingfiles.FindFileAbsPathES(extract.Destination, "elasticsearch.json")
+	absPath, err := handlingfiles.FindFileAbsPathES(extract.Destination, "elasticsearch.json")
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	for _, f := range absPath {
 		if f == extract.Destination+"/kube-system/elasticsearch.json" {
