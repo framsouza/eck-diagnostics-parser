@@ -44,7 +44,7 @@ This directory will be automatically deleted once the program finishes.
 ### Expected output
 
 ```
-Wck-diagnostics-parser -zipfile /Users/francismarasouza/Downloads/eck-diagnostic-2022-05-31T12-45-19.zip
+eck-diagnostics-parser -zipfile /Users/francismarasouza/Downloads/eck-diagnostic-2022-05-31T12-45-19.zip
 
 Welcome to the ECK diagnostic parser tool
 
@@ -64,7 +64,7 @@ test-eck-cluster-nonprod-es-default-1                                     elasti
 test-eck-cluster-nonprod-es-default-2                                     elastic-test-nonprod          Running             15G                  18650M              4                    6                   shoot--phbnrn--test-n1-q01-group-0-6bc59-m5jtc
 test-nbg-nonprod-kb-765549b8bc-f86wz                                      elastic-test-nonprod          Running             2G                   4G                  1                    2                   shoot--phbnrn--test-n1-q01-group-0-6bc59-rzk49
 test-nbg-nonprod-kb-765549b8bc-qh5lh                                      elastic-test-nonprod          Running             2G                   4G                  1                    2                   shoot--phbnrn--test-n1-q01-group-0-6bc59-9v79c
-elastic-operator-0                                                       elastic-test-nonprod          Running             150Mi                1Gi                 100m                 1                   shoot--phbnrn--test-n1-q01-group-0-6bc59-rzk49
+elastic-operator-0                                                        elastic-test-nonprod          Running             150Mi                1Gi                 100m                 1                   shoot--phbnrn--test-n1-q01-group-0-6bc59-rzk49
 prometheus-elastic-test-nonprod-0                                         elastic-test-nonprod          Running             Not set              Not set             Not set              Not set             shoot--phbnrn--test-n1-q01-group-0-6bc59-m5jtc
 
 ES NAME                                    STATUS              VERSION             PHASE               NODES               NAMESPACE
@@ -75,7 +75,7 @@ test-nbg-nonprod                    green               7.17.4              Esta
 
 STATEFULSET NAME                                      REPLICAS            NAMESPACE                    HEAP SIZE
 test-eck-cluster-nonprod-es-default                    3                   elastic-test-nonprod          -Xms12G -Xmx12G
-elastic-operator                                      1                   elastic-test-nonprod
+elastic-operator                                       1                   elastic-test-nonprod
 prometheus-elastic-test-nonprod                        1                   elastic-test-nonprod
 
 DEPLOYMENT NAME                                                      REPLICAS            NAMESPACE
@@ -97,7 +97,7 @@ test-eck-cluster-nonprod-es-internal-http                   ClusterIP           
 test-eck-cluster-nonprod-es-transport                       ClusterIP             elastic-test-nonprod          10.244.12.78, 10.244.16.94, 10.244.20.129,
 test-eck-cluster-nonprod-es-transport-300-mpls              LoadBalancer          elastic-test-nonprod          10.244.12.78, 10.244.16.94, 10.244.20.129,
 test-nbg-nonprod-kb-http                                    ClusterIP             elastic-test-nonprod          10.244.12.77, 10.244.16.93,
-elastic-webhook-server                                     ClusterIP             elastic-test-nonprod          10.244.16.92,
+elastic-webhook-server                                      ClusterIP             elastic-test-nonprod          10.244.16.92,
 prometheus-elastic-test-nonprod                             ClusterIP             elastic-test-nonprod          10.244.20.125,
 
 STORAGE CLASS NAME          PROVISIONER                     ALLOW EXPANSION          VOLUME BIND MODE              RECLAIM POLICY
